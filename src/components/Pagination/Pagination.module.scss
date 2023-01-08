@@ -1,0 +1,30 @@
+.root{
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  gap:1rem;
+  a{
+    //width: 30px;
+    //height: 30px;
+    border: 1px solid orangered;
+    border-radius: 50% ;
+    transition: .6s;
+    text-align: center;
+    //line-height: 29px;
+    padding: .4rem .75rem;
+    cursor: pointer;
+    &:hover{
+      background:orangered;
+      opacity: 70%;
+      transition: .6s;
+    }
+  }
+  :global{
+    .selected{
+      a{
+        background:orangered;
+        opacity: 70%;
+      }
+    }
+  }
+}

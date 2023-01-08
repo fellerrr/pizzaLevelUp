@@ -1,0 +1,38 @@
+.root{
+  display: flex;
+  gap:15px;
+  margin: 10px auto;
+  align-items: center;
+  color: #232323;
+  input{
+    padding: .5rem;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 15px ;
+    &::placeholder{
+      color: #b6b6b6;}
+    &:focus{
+      border: 1px solid rgba(0,0,0,0.3);
+
+    }
+  }
+  .clear{
+    opacity: 50%;
+    cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 1000px) {
+  .root{
+    order: 3;
+  }
+  :global{
+    .header>.container{
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .header>.container>a{
+      margin-right: 20px;
+    }
+  }
+
+}
