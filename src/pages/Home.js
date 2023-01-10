@@ -9,7 +9,7 @@ import qs from 'qs'
 import {useNavigate} from "react-router-dom";
 
 import {useSelector, useDispatch} from "react-redux";
-import {setCategoryId,  setCurrentPage, setFilters} from "../redux/slices/filterSlice";
+import {setCategoryId,  setCurrentPage} from "../redux/slices/filterSlice";
 import axios from "axios";
 
 
@@ -30,24 +30,50 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
 
 
-    const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
-    const paginationIS = `?p=${currentPage}&l=4`
-    const categoryIs = category > 0 ? `&category=${category}` : ''
-    const sortBy = `&sortBy=${activeSort.replace('-','')}`
-    const order =`&order=${activeSort.includes('-')? 'ask' : 'desc'}`
-    const search = searchValue ? `&search=${searchValue}` : ''
+    // const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
+    // const paginationIS = `?p=${currentPage}&l=4`
+    // const categoryIs = category > 0 ? `&category=${category}` : ''
+    // const sortBy = `&sortBy=${activeSort.replace('-','')}`
+    // const order =`&order=${activeSort.includes('-')? 'ask' : 'desc'}`
+    // const search = searchValue ? `&search=${searchValue}` : ''
+    //
+    // useEffect(()=>{
+    //         setLoading(true)
+    //         axios
+    //             .get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
+    //             .then(res=>{
+    //                 setItems(res.data)
+    //                 setLoading(false)
+    //             })
+    //         // window.scrollTo(0,0)
+    //     },[category, activeSort, currentPage, searchValue]
+    // )
 
-    useEffect(()=>{
+
+    const getPizzas = async () => {
+        const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
+        const paginationIS = `?p=${currentPage}&l=4`
+        const categoryIs = category > 0 ? `&category=${category}` : ''
+        const sortBy = `&sortBy=${activeSort.replace('-', '')}`
+        const order = `&order=${activeSort.includes('-') ? 'ask' : 'desc'}`
+        const search = searchValue ? `&search=${searchValue}` : ''
+
         setLoading(true)
-        axios
-            .get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
-            .then(res=>{
-                setItems(res.data)
-                setLoading(false)
-            })
-            // window.scrollTo(0,0)
-        },[category, activeSort, currentPage, searchValue]
-    )
+        try {
+            const res = await axios.get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
+            setItems(res.data)
+            setLoading(false)
+        }
+        catch (err){
+            setLoading(false)
+        }
+
+    }
+
+    useEffect(() => {
+        void getPizzas()
+    }, [category, sort.sortProperty, searchValue, currentPage]);
+
 
     useEffect(()=>{
         const queryString = qs.stringify({

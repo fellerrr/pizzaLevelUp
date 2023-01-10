@@ -1,13 +1,16 @@
 import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 
-import {addItem, sumCart} from "../../redux/slices/cartSlice";
+import {addItem} from "../../redux/slices/cartSlice";
 const doughNames = ['тонкое', 'традиционное']
-const Index = ({id, title, price, imageUrl, sizes, types}) => {
+const PizzaBlock = ({id, title, price, imageUrl, sizes, types}) => {
     const dispatch = useDispatch()
+    const cartItem = useSelector(state => state.cart.items.find(obj => obj.id === id))
 
     const [activeType, setActiveType] = useState(0)
     const [activeSize, setActiveSize] = useState(0)
+
+    const addedCount = cartItem ? cartItem.count : 0
 
     const onClickAdd = ()=>{
         const item = {
@@ -16,10 +19,10 @@ const Index = ({id, title, price, imageUrl, sizes, types}) => {
             price,
             imageUrl,
             type: doughNames[activeType],
-            size: activeSize
+            size: sizes[activeSize]
         }
         dispatch(addItem(item))
-        dispatch(sumCart())
+        // dispatch(sumCart())
     }
 
     return (
@@ -49,11 +52,11 @@ const Index = ({id, title, price, imageUrl, sizes, types}) => {
                                 fill="white"></path>
                         </svg>
                         <span>Добавить</span>
-                        <i>7</i>
+                        {addedCount > 0 && <i>{addedCount}</i>}
                     </div>
                 </div>
         </div>
     );
 };
 
-export default Index;
+export default PizzaBlock;
