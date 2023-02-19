@@ -7,18 +7,22 @@ const CartItem = ({id, title, type, price,size, count, imageUrl}) => {
     const oneClickPlus = ()=>{
         dispatch(
             addItem({
-                id
+                id,type,size
             })
         )
     }
 
     const oneClickMinus = ()=>{
-        dispatch(minusItem(id))
+        dispatch(minusItem({
+            id,type,size
+        }))
     }
 
     const oneClickRemove = ()=>{
         if (window.confirm('Удалить товар?')){
-            dispatch(removeItem(id))
+            dispatch(removeItem({
+                id,type,size
+            }))
         }
     }
 

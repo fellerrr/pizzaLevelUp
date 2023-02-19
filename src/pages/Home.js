@@ -30,60 +30,60 @@ const Home = () => {
     const [loading, setLoading] = useState(true)
 
 
-    // const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
-    // const paginationIS = `?p=${currentPage}&l=4`
-    // const categoryIs = category > 0 ? `&category=${category}` : ''
-    // const sortBy = `&sortBy=${activeSort.replace('-','')}`
-    // const order =`&order=${activeSort.includes('-')? 'ask' : 'desc'}`
-    // const search = searchValue ? `&search=${searchValue}` : ''
-    //
-    // useEffect(()=>{
-    //         setLoading(true)
-    //         axios
-    //             .get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
-    //             .then(res=>{
-    //                 setItems(res.data)
-    //                 setLoading(false)
-    //             })
-    //         // window.scrollTo(0,0)
-    //     },[category, activeSort, currentPage, searchValue]
-    // )
-
-
-    const getPizzas = async () => {
-        const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
-        const paginationIS = `?p=${currentPage}&l=4`
-        const categoryIs = category > 0 ? `&category=${category}` : ''
-        const sortBy = `&sortBy=${activeSort.replace('-', '')}`
-        const order = `&order=${activeSort.includes('-') ? 'ask' : 'desc'}`
-        const search = searchValue ? `&search=${searchValue}` : ''
-
-        setLoading(true)
-        try {
-            const res = await axios.get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
-            setItems(res.data)
-            setLoading(false)
-        }
-        catch (err){
-            setLoading(false)
-        }
-
-    }
-
-    useEffect(() => {
-        void getPizzas()
-    }, [category, sort.sortProperty, searchValue, currentPage]);
-
+    const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
+    const paginationIS = `?p=${currentPage}&l=4`
+    const categoryIs = category > 0 ? `&category=${category}` : ''
+    const sortBy = `&sortBy=${activeSort.replace('-','')}`
+    const order =`&order=${activeSort.includes('-')? 'ask' : 'desc'}`
+    const search = searchValue ? `&search=${searchValue}` : ''
 
     useEffect(()=>{
-        const queryString = qs.stringify({
-            sortProperty:activeSort,
-            category,
-            currentPage
-        })
+            setLoading(true)
+            axios
+                .get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
+                .then(res=>{
+                    setItems(res.data)
+                    setLoading(false)
+                })
+            // window.scrollTo(0,0)
+        },[category, activeSort, currentPage, searchValue]
+    )
 
-        navigate(`?${queryString}`)
-    }, [category, activeSort, currentPage])
+
+    // const getPizzas = async () => {
+    //     const baseApi = 'https://63a3b1d3471b38b20613fdcd.mockapi.io/pizzas'
+    //     const paginationIS = `?p=${currentPage}&l=4`
+    //     const categoryIs = category > 0 ? `&category=${category}` : ''
+    //     const sortBy = `&sortBy=${activeSort.replace('-', '')}`
+    //     const order = `&order=${activeSort.includes('-') ? 'ask' : 'desc'}`
+    //     const search = searchValue ? `&search=${searchValue}` : ''
+    //
+    //     setLoading(true)
+    //     try {
+    //         const res = await axios.get(`${baseApi}${paginationIS}${categoryIs}${sortBy}${order}${search}`)
+    //         setItems(res.data)
+    //         setLoading(false)
+    //     }
+    //     catch (err){
+    //         setLoading(false)
+    //     }
+    //
+    // }
+    //
+    // useEffect(() => {
+    //     void getPizzas()
+    // }, [category, sort.sortProperty, searchValue, currentPage]);
+    //
+    //
+    // useEffect(()=>{
+    //     const queryString = qs.stringify({
+    //         sortProperty:activeSort,
+    //         category,
+    //         currentPage
+    //     })
+    //
+    //     navigate(`?${queryString}`)
+    // }, [category, activeSort, currentPage])
 
     return (
         <>
